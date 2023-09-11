@@ -3,53 +3,27 @@ const Schema = mongoose.Schema;
 // const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
     name: {
         type: String,
         required: true,
         unique: true
     },
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
+    hobbies: {
         type: String,
         required: true,
     },
-    phone: {
+    about: {
         type: String,
+        required: true,
     },
-    profile_pic: {
+    sex: {
         type: String,
+        required: true,
     },
-    tokens: {
-        type: Number,
-    },
-    free_trials: {
-        type: Number,
-    },
-    bankName: {
+    job: {
         type: String,
-    },
-    accountName: {
-        type: String,
-    },
-    accountNumber: {
-        type: String,
-    },
-    isActive: {
-        type: Boolean,
-    },
-    dob: {
-        type: Date,
+        required: true,
     }
-
 },
     { timestamps: true }
 );
