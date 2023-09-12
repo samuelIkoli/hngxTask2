@@ -56,6 +56,4 @@ describe('API Endpoint Tests', () => {
         expect(response.body).to.have.property("_id");
     }).timeout(15000);
 
-
-
 });
