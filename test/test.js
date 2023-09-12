@@ -1,6 +1,6 @@
 const chai = require('chai');
 const server = require('../index'); // Import your Express app
-const request = require("supertest");
+// const request = require("supertest");
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 // let should = chai.should();
