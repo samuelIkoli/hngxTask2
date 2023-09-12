@@ -1,40 +1,35 @@
-const session = require('express-session');
-const bcrypt = require('bcryptjs');
 const express = require('express')
 const User = require('../models/users')
-const Number = require('../models/numbers')
-// const { Op, where } = require('sequelize')
-const { hashPassword } = require('../utils/hashPassword')
-const { Mail } = require('../utils/validate');
-const { trusted } = require('mongoose');
-// const uniqid = require('uniqid');
-// const { getHostEvent, getPurchaseFollow, has24HoursPassed } = require('../utils/getFriends');
+const mongoose = require('mongoose');
+// const mongo = require('mongodb')
 
-module.exports.sample = (req, res) => {
-    const user = User.create({ name: 'sam', hobbies: 'football', job: 'Developer', sex: 'Male', about: 'I like tech, anime and vide games. Girls too.' })
-    res.send(user)
+
+module.exports.sample = async (req, res) => {
+    const user = await User.create({ name: 'Hoselita Ikoli', value: 'Very much valuable, billionaire' });
+    return res.send(user)
 }
 
 module.exports.getUsers = async (req, res) => {
     try {
         const users = await User.find();
-        res.status(200).send(users)
+        return res.status(200).send(users)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
 }
 
 module.exports.getProfile = async (req, res) => {
-    const user = await User.findById({ id });
-    return res.status(200).send(user)
+    const name = req.params.user_id
+    const user = await User.findOne({ name }).exec()
+    return user ? res.status(200).send(user) : res.send('Can not find that user, CHECK SPELLING')
 }
 
 module.exports.register = async (req, res) => {
     try {
         //get params from the request body
-        const { email, name, hobbies, job, about, sex } = req.body
-        const user = new User({ name, hobbies, job, about, sex });
-        await user.save();
+        const { name, value } = req.body
+        let user = new User({ name, value });
+        user = await user.save();
         return res.send(user);
     }
     catch (e) {
@@ -43,20 +38,20 @@ module.exports.register = async (req, res) => {
 }
 
 module.exports.editProfile = async (req, res) => {
-    const { name, hobbies, job, about, sex } = req.body
-    const id = req.session.user_id || req.body.id;
+    // const { name, value } = req.body
+    const name = req.params.user_id
     try {
-        const updateUser = await User.findByIdAndUpdate(id, { name, hobbies, job, about, sex });
-        await updateUser.save();
-        return res.status(200).send(updateUser)
+        const updateUser = await User.findOneAndUpdate({ name }, { ...req.body });
+        return updateUser ? res.status(200).send(updateUser) : res.send('Either user is not in database or invalid field, CHECK SPELLING')
     } catch (error) {
         return res.status(400).json({ message: error.message })
     }
 }
 
 module.exports.delete = async (req, res) => {
-    const user = await User.findByIdAndDelete({ id });
-    return res.status(200).send(user)
+    const name = req.params.user_id
+    const user = await User.findOneAndDelete({ name });
+    return user ? res.status(200).send(user) : res.send('User not found, delete unsuccessful, CHECK SPELLING')
 }
 
 

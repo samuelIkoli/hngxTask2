@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongo = require('mongodb')
 const Schema = mongoose.Schema;
 // const passportLocalMongoose = require('passport-local-mongoose');
 
@@ -6,21 +7,9 @@ const UserSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
-    hobbies: {
-        type: String,
-        required: true,
-    },
-    about: {
-        type: String,
-        required: true,
-    },
-    sex: {
-        type: String,
-        required: true,
-    },
-    job: {
+    value: {
         type: String,
         required: true,
     }
