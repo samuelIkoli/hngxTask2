@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 router.route('/users')
     .get(users.getUsers)
 
+
 router.route('/sample')
     .get(users.sample)
 
@@ -21,6 +22,8 @@ router.route('/api/:user_id')
     .post(users.delete)
 
 
-router.post('/api', users.register)
+router.route('/api')
+    .post(users.register)
+    .get(users.getUsers)
 
 module.exports = router;
