@@ -1,0 +1,37 @@
+@startuml
+!define RECT class
+!define FIELD - 
+!define METHOD + 
+
+object User {
+  +id: ObjectId
+  +name: String
+  +value: String
+}
+
+UserController ->  User
+
+UserService -> User
+UserRepository -> User
+
+object UserController {
+  +createUser(userData: UserDto): User
+  +getUserById(userId: ObjectId): User
+  +updateUser(userId: ObjectId, userData: UserDto): User
+  +deleteUser(userId: ObjectId): void
+}
+
+object UserService {
+  +createUser(userData: UserDto): User
+  +getUserById(userId: ObjectId): User
+  +updateUser(userId: ObjectId, userData: UserDto): User
+  +deleteUser(userId: ObjectId): void
+}
+
+object UserRepository {
+  +createUser(userData: User): User
+  +getUserById(userId: ObjectId): User
+  +updateUser(userId: ObjectId, userData: User): User
+  +deleteUser(userId: ObjectId): void
+}
+@enduml

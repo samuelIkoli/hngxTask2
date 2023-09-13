@@ -127,4 +127,4 @@ DELETE /api/:user_name
 [https://github.com/samuelIkoli/hngxTask2](https://github.com/samuelIkoli/hngxTask2)
 
 ## UML Diagram
-![UML Diagram by Benjamin Nkem](/assets/user-api-plan.png)
+![UML Diagram by Benjamin Nkem](/assets/Uml.png)
