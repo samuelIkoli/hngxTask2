@@ -14,14 +14,14 @@ module.exports.getUsers = async (req, res) => {
         const users = await User.find();
         return res.status(200).send(users)
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(400).json({ message: error.message })
     }
 }
 
 module.exports.getProfile = async (req, res) => {
     const name = req.params.user_id
     const user = await User.findOne({ name }).exec()
-    return user ? res.status(200).send(user) : res.send('Can not find that user, CHECK SPELLING')
+    return user ? res.status(200).send(user) : res.status(400).send('Can not find that user, CHECK SPELLING')
 }
 
 module.exports.register = async (req, res) => {
@@ -42,7 +42,7 @@ module.exports.editProfile = async (req, res) => {
     const name = req.params.user_id
     try {
         const updateUser = await User.findOneAndUpdate({ name }, { ...req.body });
-        return updateUser ? res.status(200).send(updateUser) : res.send('Either user is not in database or invalid field, CHECK SPELLING')
+        return updateUser ? res.status(200).send(updateUser) : res.status(400).send('Either user is not in database or invalid field, CHECK SPELLING')
     } catch (error) {
         return res.status(400).json({ message: error.message })
     }
@@ -51,7 +51,7 @@ module.exports.editProfile = async (req, res) => {
 module.exports.delete = async (req, res) => {
     const name = req.params.user_id
     const user = await User.findOneAndDelete({ name });
-    return user ? res.status(200).send(user) : res.send('User not found, delete unsuccessful, CHECK SPELLING')
+    return user ? res.status(200).send(user) : res.status(400).send('User not found, delete unsuccessful, CHECK SPELLING')
 }
 
 

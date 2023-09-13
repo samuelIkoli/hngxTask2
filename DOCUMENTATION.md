@@ -1,66 +1,37 @@
 # API Documentation
 
-This document provides documentation for the API endpoints along with expected request and response examples.
+This document provides documentation for the API endpoints of HNG task2 and example requests and responses.
 
 ## Table of Contents
 
-- [Person Endpoints](#person-endpoints)
+- [User Endpoints](#user-endpoints)
 
-  - [Get All Persons](#get-all-persons)
-  - [Get Person by Name](#get-person-by-name)
-  - [Create Person](#create-person)
-  - [Update Person](#update-person)
-  - [Delete Person](#delete-person)
+  - [Get All Users](#get-all-users)
+  - [Get User by Name](#get-user-by-name)
+  - [Create User](#create-user)
+  - [Update User](#update-user)
+  - [Delete User](#delete-user)
 
 - [Installation](#installation-on-local-server)
 - [Testing](#testing)
 
 ---
 
-## Person Endpoints
+## User Endpoints
 
-### Get All Persons
+### Get All Users
 
-Retrieve a list of all persons.
+Retrieve a list of all users.
 
-- **URL**: `/api`
+- **URL**: `/users`
 - **Method**: `GET`
 - **Request**: None
-- **Response**:
+- **Response**: Array of Javascript Objects. Objects are user details
 
-  ```json
-  [
-    {
-      "_id": "64fe1faa404fb9679375e69d",
-      "name": "BK Ole",
-      "date_joined": "2023-09-10T19:57:30.298Z"
-    },
-    {
-      "_id": "64fe1f88404fb9679375e696",
-      "name": "Craving Mik",
-      "date_joined": "2023-09-10T19:56:56.286Z"
-    },
-    {
-      "_id": "64fe1f7b404fb9679375e692",
-      "name": "Charles Babbage",
-      "date_joined": "2023-09-10T19:56:43.588Z"
-    },
-    {
-      "_id": "64fe1f74404fb9679375e68f",
-      "name": "Michael Loaw",
-      "date_joined": "2023-09-10T19:56:36.610Z"
-    },
-    {
-      "_id": "64fe1f6c404fb9679375e68c",
-      "name": "John Doe",
-      "date_joined": "2023-09-10T19:56:28.059Z"
-    }
-  ]
-  ```
 
-### Create Person
+### Create User
 
-Create a new person record.
+Create a new user record.
 
 - **URL**: `/api`
 - **Method**: `POST`
@@ -68,67 +39,73 @@ Create a new person record.
 
   ```json
   {
-    "name": "Nkem B"
+    "name": "John Doe",
+    "value": "anything"
   }
   ```
 
-- **Response** (Success - HTTP Status Code 204):
-  No response body
+- **Response** (Success - HTTP Status Code 200):
+  Response body is same as created user
 
-### Get Person By Name
+### Get User By Name
 
-Retrieve details of a specific person by their name.
+Retrieve details of a specific user by their name.
 
-- **URL**: `/api/:name`
+- **URL**: `/api/:user_name`
 - **Method**: `GET`
 - **Request**: None
-- **Response**:
-
+- **Response**: If user exists, (Success - HTTP Status Code 200) and details of username searched, else (Failed - HTTP Status Code 400), e.g.
   ```json
   {
-    "_id": "64fe3d2ecc4b0ccbbb88ea8c",
-    "name": "Nkem Benjamin",
-    "date_joined": "2023-09-10T22:03:26.081Z"
+    "name": "Mark Essien",
+    "value": "Great Tech Entrepreneur",
   }
   ```
 
-### Update Person
 
-Update the details of a specific person.
+### Update User
 
-- **URL**: `/api/:name` Where `:name` should be replaced with the **`CURRENT`** name of the already existing person.
+Update the details of a specific user.
+
+- **URL**: `/api/:user_name` Where `:user_name` should be replaced with the **`CURRENT`** name of the already existing user.
 - **Method**: `PUT`
 - **Request**:
 
   ```json
   {
-    "name": "New/Updated Name"
+    "name": "updated name",
+    "value": "updated value"
+  }
+  ```
+- **Response**: If successfully updated, (Success - HTTP Status Code 200) and details of new user is returned, else (Failed - HTTP Status Code 400)
+  ```json
+  {
+    "name": "updated name",
+    "value": "updated value"
   }
   ```
 
-### Delete Person
+### Delete User
 
-Delete a person record.
+Deletes a user's record.
 
-This section explains how to delete a person record using a `DELETE` request to the `/api/:id` endpoint. A successful deletion will result in an HTTP status code of 204 (No Content), and there will be no response body.
-
-- **URL**: `/api/:name`
+- **URL**: `/api/:user_name`
 - **Method**: `DELETE`
 - **Request**: None
-- **Response** (Success - HTTP Status Code 204 No Content):
+- **Response** (Success - HTTP Status Code 200), details of user that has been deleted.
 
 ## Installation On Local Server
 
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/benjaminnkem/hngx-person-api.git
+   git clone https://github.com/samuelIkoli/hngxTask2.git
    ```
 
 2. Change to the project directory:
 
    ```bash
-   cd hngx-person-api
+   cd hngxTask2
    ```
 
 3. Install the required dependencies:
